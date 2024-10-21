@@ -65,20 +65,32 @@ function logToGoogleSheets(searchQuery) {
     });
 }
 
+// Hàm parse chuỗi với nhiều định dạng khác nhau
 function parseInputData(inputData) {
-    const dataDict = {};
-    const items = inputData.split(',');
+    // Bước 1: Xử lý chuỗi đầu vào, thay thế dấu nháy đơn bằng dấu nháy kép
+    const cleanedInput = inputData.replace(/'/g, '"');  // Thay thế dấu nháy đơn bằng nháy kép
+    
+    let parsedData = {};
+    
+    try {
+        // Bước 2: Kiểm tra xem chuỗi có phải là JSON hợp lệ hay không
+        parsedData = JSON.parse(cleanedInput);
+    } catch (error) {
+        console.error('Error parsing string as JSON:', error);
+        
+        // Nếu không phải JSON hợp lệ, sử dụng phương pháp cũ (split thủ công)
+        const items = inputData.split(',');
+        items.forEach(item => {
+            const parts = item.split(':');
+            if (parts.length === 2) {
+                const label = parts[0].trim();
+                const quantity = parseInt(parts[1].trim(), 10);
+                parsedData[label] = quantity;
+            }
+        });
+    }
 
-    items.forEach(item => {
-        const parts = item.split(':');
-        if (parts.length === 2) {
-            const label = parts[0].trim();
-            const quantity = parseInt(parts[1].trim(), 10);
-            dataDict[label] = quantity;
-        }
-    });
-
-    return dataDict;
+    return parsedData;
 }
 
 function getVietnameseLabel(englishLabel) {
