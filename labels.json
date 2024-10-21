@@ -40,10 +40,10 @@
     "winding-z-hor-stamping-conductors-nok": "Cuộn z ngang - Dập dây - NOK",
     "winding-z-ver-stamping-conductors-nok": "Cuộn z dọc - Dập dây - NOK",
     "magnetic-overflow-nok": "Tràn từ - NOK",
-    "winding-y-scratch-wire-nok": "Cuộn y - Dây trầy xước - NOK",
-    "winding-z-ver-scratch-wire-nok": "Cuộn z dọc - Dây trầy xước - NOK",
-    "winding-z-hor-scratch-wire-nok": "Cuộn z ngang - Dây trầy xước - NOK",
-    "winding-x-scratch-wire-nok": "Cuộn x - Dây trầy xước - NOK",
+    "winding-y-scratch-wire--nok": "Cuộn y - Dây trầy xước - NOK",
+    "winding-z-ver-scratch-wire--nok": "Cuộn z dọc - Dây trầy xước - NOK",
+    "winding-z-hor-scratch-wire--nok": "Cuộn z ngang - Dây trầy xước - NOK",
+    "winding-x-scratch-wire--nok": "Cuộn x - Dây trầy xước - NOK",
     "pin-half-wire-broken-wire-nok": "Pin quấn 1 chân - Dây gãy - NOK",
-    "pin-half-wire-base-nok": "Pin quấn 1 chân - Đáy - NOK"
+    "pin-half-wire-base-nok": "Pin quấn 1 chân - Base - NOK"
 }
