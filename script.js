@@ -1,3 +1,4 @@
+//TruongHuynh
 let labelMapping = {};
 
 // URL của Google Apps Script
@@ -42,7 +43,7 @@ function processInput() {
         tableBody.appendChild(row);
     }
 
-    // Ghi log vào Google Sheets với tên dự án và dữ liệu
+    // Ghi log vào Google Sheets
     logToGoogleSheets(projectName, inputData);
 }
 
@@ -69,6 +70,7 @@ function logToGoogleSheets(projectName, inputData) {
     });
 }
 
+// Hàm parse chuỗi đầu vào
 function parseInputData(inputData) {
     const dataDict = {};
     const items = inputData.split(',');
@@ -78,7 +80,11 @@ function parseInputData(inputData) {
         if (parts.length === 2) {
             const label = parts[0].trim();
             const quantity = parseInt(parts[1].trim(), 10);
-            dataDict[label] = quantity;
+            if (!isNaN(quantity)) { // Kiểm tra nếu quantity hợp lệ
+                dataDict[label] = quantity;
+            } else {
+                console.error(`Invalid quantity for label ${label}: ${parts[1].trim()}`);
+            }
         }
     });
 
