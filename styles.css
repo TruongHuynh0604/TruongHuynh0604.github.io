@@ -6,12 +6,12 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px; /* Tăng chiều rộng tối đa của container */
     margin: auto;
     background: #fff;
-    padding: 20px;
+    padding: 30px; /* Tăng padding bên trong */
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Tăng độ mờ của bóng đổ */
 }
 
 h1 {
@@ -20,17 +20,19 @@ h1 {
 
 textarea {
     width: 100%;
-    height: 80px;
-    margin-bottom: 10px;
+    height: 100px; /* Tăng chiều cao của textarea */
+    margin-bottom: 15px; /* Tăng khoảng cách dưới textarea */
+    font-size: 16px; /* Tăng kích thước chữ trong textarea */
 }
 
 button {
-    margin: 5px;
-    padding: 10px 15px;
+    margin: 8px; /* Tăng khoảng cách giữa các nút */
+    padding: 12px 20px; /* Tăng padding cho nút */
     border: none;
     background-color: #007bff;
     color: white;
     cursor: pointer;
+    font-size: 16px; /* Tăng kích thước chữ trong nút */
 }
 
 button:hover {
@@ -44,7 +46,7 @@ table {
 }
 
 th, td {
-    padding: 10px;
+    padding: 15px; /* Tăng khoảng cách cho th và td */
     border: 1px solid #ddd;
     text-align: left;
 }
