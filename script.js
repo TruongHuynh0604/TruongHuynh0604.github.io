@@ -15,13 +15,16 @@ document.getElementById('saveBtn').addEventListener('click', saveToExcel);
 document.getElementById('printBtn').addEventListener('click', printData);
 
 function processInput() {
+    const projectName = document.getElementById('projectName').value.trim(); // Lấy tên dự án
     const inputData = document.getElementById('inputData').value;
     const parsedData = parseInputData(inputData);
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = '';
 
+    // Sắp xếp dữ liệu
     const sortedEntries = Object.entries(parsedData).sort((a, b) => a[1] - b[1]);
 
+    // Thêm các hàng vào bảng
     for (const [englishLabel, quantity] of sortedEntries) {
         const vietnameseLabel = getVietnameseLabel(englishLabel);
         const note = englishLabel.includes("nok") ? "NOK" : "OK";
@@ -39,23 +42,24 @@ function processInput() {
         tableBody.appendChild(row);
     }
 
-    // Ghi log vào Google Sheets
-    logToGoogleSheets(inputData);
+    // Ghi log vào Google Sheets với tên dự án và dữ liệu
+    logToGoogleSheets(projectName, inputData);
 }
 
-function logToGoogleSheets(searchQuery) {
+function logToGoogleSheets(projectName, inputData) {
     fetch(googleScriptURL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            'searchQuery': searchQuery // Gửi giá trị searchQuery
+            'projectName': projectName, // Gửi giá trị projectName
+            'inputData': inputData // Gửi giá trị inputData
         })
     })
     .then(response => {
         if (response.ok) {
-            console.log('Search logged to Google Sheets:', response);
+            console.log('Data logged to Google Sheets:', response);
         } else {
             console.error('Error sending data to Google Sheets:', response);
         }
@@ -65,32 +69,20 @@ function logToGoogleSheets(searchQuery) {
     });
 }
 
-// Hàm parse chuỗi với nhiều định dạng khác nhau
 function parseInputData(inputData) {
-    // Bước 1: Xử lý chuỗi đầu vào, thay thế dấu nháy đơn bằng dấu nháy kép
-    const cleanedInput = inputData.replace(/'/g, '"');  // Thay thế dấu nháy đơn bằng nháy kép
-    
-    let parsedData = {};
-    
-    try {
-        // Bước 2: Kiểm tra xem chuỗi có phải là JSON hợp lệ hay không
-        parsedData = JSON.parse(cleanedInput);
-    } catch (error) {
-        console.error('Error parsing string as JSON:', error);
-        
-        // Nếu không phải JSON hợp lệ, sử dụng phương pháp cũ (split thủ công)
-        const items = inputData.split(',');
-        items.forEach(item => {
-            const parts = item.split(':');
-            if (parts.length === 2) {
-                const label = parts[0].trim();
-                const quantity = parseInt(parts[1].trim(), 10);
-                parsedData[label] = quantity;
-            }
-        });
-    }
+    const dataDict = {};
+    const items = inputData.split(',');
 
-    return parsedData;
+    items.forEach(item => {
+        const parts = item.split(':');
+        if (parts.length === 2) {
+            const label = parts[0].trim();
+            const quantity = parseInt(parts[1].trim(), 10);
+            dataDict[label] = quantity;
+        }
+    });
+
+    return dataDict;
 }
 
 function getVietnameseLabel(englishLabel) {
