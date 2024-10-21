@@ -1,5 +1,8 @@
 let labelMapping = {};
 
+// URL của Google Apps Script
+const googleScriptURL = 'https://script.google.com/macros/s/AKfycbynSJbSk0vvv9iXsqGxaJITTSCen9646FliQHmeYlXewSmY9cg1eC4B3fx_hC4QXSuX/exec'; // Thay thế bằng URL của Google Apps Script
+
 fetch('labels.json')
     .then(response => response.json())
     .then(data => {
@@ -35,6 +38,31 @@ function processInput() {
         
         tableBody.appendChild(row);
     }
+
+    // Ghi log vào Google Sheets
+    logToGoogleSheets(inputData);
+}
+
+function logToGoogleSheets(searchQuery) {
+    fetch(googleScriptURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            'searchQuery': searchQuery // Gửi giá trị searchQuery
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Search logged to Google Sheets:', response);
+        } else {
+            console.error('Error sending data to Google Sheets:', response);
+        }
+    })
+    .catch(error => {
+        console.error('Error sending data to Google Sheets:', error);
+    });
 }
 
 function parseInputData(inputData) {
