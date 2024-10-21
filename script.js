@@ -3,7 +3,7 @@ let labelMapping = {};
 fetch('labels.json')
     .then(response => response.json())
     .then(data => {
-        labelMapping = data; // Lưu trữ dữ liệu vào biến labelMapping
+        labelMapping = data;
     })
     .catch(error => console.error('Error loading JSON:', error));
 
@@ -15,9 +15,8 @@ function processInput() {
     const inputData = document.getElementById('inputData').value;
     const parsedData = parseInputData(inputData);
     const tableBody = document.querySelector('#dataTable tbody');
-    tableBody.innerHTML = ''; // Clear previous data
+    tableBody.innerHTML = '';
 
-    // Sắp xếp parsedData theo quantity từ nhỏ đến lớn
     const sortedEntries = Object.entries(parsedData).sort((a, b) => a[1] - b[1]);
 
     for (const [englishLabel, quantity] of sortedEntries) {
