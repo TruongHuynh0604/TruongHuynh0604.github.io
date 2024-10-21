@@ -3,61 +3,94 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
+    transition: background-color 0.5s ease-in-out;
 }
 
 .container {
-    max-width: 1200px; /* Tăng chiều rộng tối đa của container */
+    max-width: 1200px;
     margin: auto;
     background: #fff;
-    padding: 30px; /* Tăng padding bên trong */
+    padding: 30px;
     border-radius: 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Tăng độ mờ của bóng đổ */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.02); /* Tăng kích thước nhẹ khi hover */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
     text-align: center;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards; /* Hiệu ứng fade-in cho tiêu đề */
 }
 
 textarea {
     width: 100%;
-    height: 100px; /* Tăng chiều cao của textarea */
-    margin-bottom: 15px; /* Tăng khoảng cách dưới textarea */
-    font-size: 16px; /* Tăng kích thước chữ trong textarea */
+    height: 100px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Hiệu ứng khi người dùng tương tác */
+}
+
+textarea:focus {
+    background-color: #e8f0fe; /* Thay đổi màu nền khi focus */
 }
 
 button {
-    margin: 8px; /* Tăng khoảng cách giữa các nút */
-    padding: 12px 20px; /* Tăng padding cho nút */
+    margin: 8px;
+    padding: 12px 20px;
     border: none;
     background-color: #007bff;
     color: white;
     cursor: pointer;
-    font-size: 16px; /* Tăng kích thước chữ trong nút */
-    border-radius: 8px; /* Bo cong góc cho nút */
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Thêm hiệu ứng chuyển động */
 }
 
 button:hover {
     background-color: #0056b3;
+    transform: scale(1.05); /* Tăng kích thước nút khi hover */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    opacity: 0; /* Bắt đầu với bảng ẩn */
+    animation: fadeInTable 1s forwards; /* Hiệu ứng fade-in cho bảng */
 }
 
 th, td {
-    padding: 15px; /* Tăng khoảng cách cho th và td */
+    padding: 15px;
     border: 1px solid #ddd;
     text-align: left;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền khi dữ liệu thay đổi */
 }
 
 .red {
     background-color: red;
     color: white;
+    transition: background-color 0.3s ease;
 }
 
 .yellow {
     background-color: yellow;
     color: black;
+    transition: background-color 0.3s ease;
+}
+
+/* Animation cho h1 */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Animation cho bảng */
+@keyframes fadeInTable {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
