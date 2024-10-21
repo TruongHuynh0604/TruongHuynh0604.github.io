@@ -1,3 +1,12 @@
+let labelMapping = {};
+
+fetch('labels.json')
+    .then(response => response.json())
+    .then(data => {
+        labelMapping = data; // Lưu trữ dữ liệu vào biến labelMapping
+    })
+    .catch(error => console.error('Error loading JSON:', error));
+
 document.getElementById('processBtn').addEventListener('click', processInput);
 document.getElementById('saveBtn').addEventListener('click', saveToExcel);
 document.getElementById('printBtn').addEventListener('click', printData);
@@ -46,58 +55,7 @@ function parseInputData(inputData) {
 }
 
 function getVietnameseLabel(englishLabel) {
-    const labelMapping = {
-        "pin-half-wire-ok": "Pin quấn 1 chân - OK",
-        "pin-full-wire-wire-through-base-nok": "Pin quấn 2 chân - Dây qua đế - NOK",
-        "winding-z-hor-ok": "Cuộn z ngang - OK",
-        "ferrite-core-ok": "Lõi ferrite - OK",
-        "winding-z-ver-ok": "Cuộn z dọc - OK",
-        "winding-y-ok": "Cuộn y - OK",
-        "winding-x-ok": "Cuộn x - OK",
-        "pin-full-wire-ok": "Chân dây đầy - OK",
-        "winding-z-hor-base-groove-deflection-nok": "Cuộn z ngang - lệch rãnh đế - NOK",
-        "winding-z-ver-nok": "Cuộn z dọc - NOK",
-        "pin-half-wire-long-cord-failure-nok": "Pin quấn 1 chân - Lỗi dây dài - NOK",
-        "pin-full-wire-base-groove-deflection-nok": "Pin quấn 2 chân - Lệch rãnh đế - NOK",
-        "ferrite-core-magnetic-overflow-nok": "Lõi ferrite - Tràn từ - NOK",
-        "winding-y-loose-wire-nok": "Cuộn y - Dây lỏng - NOK",
-        "winding-x-nok": "Cuộn x - NOK",
-        "pin-half-wire-wrapping-missing-rings-nok": "Pin quấn 1 chân - Thiếu vòng quấn - NOK",
-        "pin-half-wire-wire-up-the-base-nok": "Pin quấn 1 chân - Dây lên đế - NOK",
-        "winding-z-hor-nok": "Cuộn z ngang - NOK",
-        "winding-z-hor-loose-wire-nok": "Cuộn z ngang - Dây lỏng - NOK",
-        "winding-z-ver-loose-wire-nok": "Cuộn z dọc - Dây lỏng - NOK",
-        "pin-half-wire-bend-pin-nok": "Pin quấn 1 chân - Cong chân - NOK",
-        "ferrite-core-broken-ferrite-nok": "Lõi ferrite - Gãy/mẻ ferrite - NOK",
-        "pin-full-wire-long-cord-failure-nok": "Pin quấn 2 chân - Lỗi dây dài - NOK",
-        "winding-y-nok": "Cuộn y - NOK",
-        "winding-z-hor-dirty-wire-nok": "Cuộn z ngang - Dây bẩn - NOK",
-        "winding-z-ver-dirty-wire-nok": "Cuộn z dọc - Dây bẩn - NOK",
-        "winding-x-dirty-wire-nok": "Cuộn x - Dây bẩn - NOK",
-        "pin-full-wire-wrapping-missing-rings-nok": "Pin quấn 2 chân - Thiếu vòng quấn - NOK",
-        "pin-half-wire-no-heat-treat-nok": "Pin quấn 1 chân - Không xử lý nhiệt - NOK",
-        "ferrite-core-nok": "Lõi ferrite - NOK",
-        "pin-full-wire-no-heat-treat-nok": "Pin quấn 2 chân - Không xử lý nhiệt - NOK",
-        "ferrite-core-stamping-conductors-nok": "Lõi ferrite - Dập dây - NOK",
-        "pin-full-wire-base-nok": "Pin quấn 2 chân - Base - NOK",
-        "winding-y-dirty-wire-nok": "Cuộn y - Dây bẩn - NOK",
-        "pin-full-wire-wire-stamping-nok": "Pin quấn 2 chân - Dập dây - NOK",
-        "pin-full-wire-wire-up-the-base-nok": "Pin quấn 2 chân - Dây lên đế - NOK",
-        "pin-full-wire-bend-pin-nok": "Pin quấn 2 chân - Cong chân - NOK",
-        "pin-half-wire-base-groove-deflection-nok": "Pin quấn 1 chân - Lệch rãnh đáy - NOK",
-        "winding-z-hor-stamping-conductors-nok": "Cuộn z ngang - Dập dây - NOK",
-        "winding-z-ver-stamping-conductors-nok": "Cuộn z dọc - Dập dây - NOK",
-        "magnetic-overflow-nok": "Tràn từ - NOK",
-        "winding-y-scratch--wire-nok": "Cuộn y - Dây trầy xước - NOK",
-        "winding-z-ver-scratch--wire-nok": "Cuộn z dọc - Dây trầy xước - NOK",
-        "winding-z-hor-scratch--wire-nok": "Cuộn z ngang - Dây trầy xước - NOK",
-        "winding-x--scratch-wire-nok": "Cuộn x - Dây trầy xước - NOK",
-        "pin-half-wire-broken-wire-nok": "Pin quấn 1 chân - Dây gãy - NOK",
-        "pin-half-wire-base-nok": "Pin quấn 1 chân - Đáy - NOK",
-        // ... (Thêm các ánh xạ khác nếu cần)
-    };
-
-    return labelMapping[englishLabel] || "N/A";
+    return labelMapping[englishLabel] || "N/A"; // Sử dụng labelMapping đã tải
 }
 
 function getQuantityClass(quantity) {
