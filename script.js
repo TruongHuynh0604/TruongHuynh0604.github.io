@@ -1,7 +1,7 @@
 let labelMapping = {};
 
 // URL của Google Apps Script
-const googleScriptURL = 'https://script.google.com/macros/s/AKfycbynSJbSk0vvv9iXsqGxaJITTSCen9646FliQHmeYlXewSmY9cg1eC4B3fx_hC4QXSuX/exec'; // Thay thế bằng URL của Google Apps Script
+const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwKu-1r6rgcGVYSY1N0S5eP-m0RJCeZHsE2chlTRMV9AkTpi9_xk3klCa_L9N9tHjCs/exec'; // Thay thế bằng URL của Google Apps Script
 
 fetch('labels.json')
     .then(response => response.json())
