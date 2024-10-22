@@ -3,6 +3,7 @@ let labelMapping = {};
 // URL của Google Apps Script
 const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwKu-1r6rgcGVYSY1N0S5eP-m0RJCeZHsE2chlTRMV9AkTpi9_xk3klCa_L9N9tHjCs/exec'; // Thay thế bằng URL của Google Apps Script
 
+// Tải file JSON chứa các nhãn
 fetch('labels.json')
     .then(response => response.json())
     .then(data => {
@@ -10,6 +11,7 @@ fetch('labels.json')
     })
     .catch(error => console.error('Error loading JSON:', error));
 
+// Sự kiện khi nhấn các nút
 document.getElementById('processBtn').addEventListener('click', processInput);
 document.getElementById('saveBtn').addEventListener('click', saveToExcel);
 document.getElementById('printBtn').addEventListener('click', printData);
@@ -21,8 +23,10 @@ function processInput() {
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = '';
 
+    // Sắp xếp dữ liệu theo giá trị số lượng tăng dần
     const sortedEntries = Object.entries(parsedData).sort((a, b) => a[1] - b[1]);
 
+    // Tạo bảng hiển thị dữ liệu
     for (const [englishLabel, quantity] of sortedEntries) {
         const vietnameseLabel = getVietnameseLabel(englishLabel);
         const note = englishLabel.includes("nok") ? "NOK" : "OK";
@@ -40,10 +44,11 @@ function processInput() {
         tableBody.appendChild(row);
     }
 
-    // Ghi log vào Google Sheets với định dạng yêu cầu
+    // Ghi log vào Google Sheets với định dạng tên dự án [chuỗi dữ liệu]
     logToGoogleSheets(projectName, inputData);
 }
 
+// Hàm ghi log dữ liệu lên Google Sheets
 function logToGoogleSheets(projectName, inputData) {
     const formattedData = `${projectName} [${inputData}]`; // Định dạng dữ liệu theo yêu cầu
     fetch(googleScriptURL, {
@@ -67,7 +72,7 @@ function logToGoogleSheets(projectName, inputData) {
     });
 }
 
-// Hàm parse chuỗi với nhiều định dạng khác nhau
+// Hàm phân tích chuỗi đầu vào với nhiều định dạng
 function parseInputData(inputData) {
     const cleanedInput = inputData.replace(/'/g, '"');  // Thay thế dấu nháy đơn bằng nháy kép
     
@@ -94,22 +99,26 @@ function parseInputData(inputData) {
     return parsedData;
 }
 
+// Hàm lấy nhãn tiếng Việt tương ứng từ file JSON
 function getVietnameseLabel(englishLabel) {
     return labelMapping[englishLabel] || "N/A"; // Sử dụng labelMapping đã tải
 }
 
+// Hàm xác định màu sắc ô dựa trên số lượng
 function getQuantityClass(quantity) {
     if (quantity < 100) return 'red';
     if (quantity < 200) return 'yellow';
     return '';
 }
 
+// Hàm lưu dữ liệu bảng vào file Excel
 function saveToExcel() {
     const table = document.getElementById('dataTable');
     const workbook = XLSX.utils.table_to_book(table, { sheet: "Data" });
     XLSX.writeFile(workbook, 'data_analysis.xlsx');
 }
 
+// Hàm in dữ liệu bảng
 function printData() {
     const printWindow = window.open('', '_blank');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
