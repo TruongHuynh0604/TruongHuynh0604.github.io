@@ -46,10 +46,6 @@
     "winding-x-scratch-wire--nok": "Cuộn x - Dây trầy xước - NOK",
     "pin-half-wire-broken-wire-nok": "Pin quấn 1 chân - Dây gãy - NOK",
     "pin-half-wire-base-nok": "Pin quấn 1 chân - Base - NOK",
-    "winding-z-ver-wire-indentation-nok": "Cuộn z dọc - Ngấn dây - NOK",
-    "winding-z-ver-magnetic-overflow-nok": "Cuộn z dọc - Tràn từ - NOK",
-    "winding-z-ver-wire-z-is-tight-nok": "Cuộn z dọc - Dây z căng - NOK",
-    "winding-z-hor-wire-indentation-nok": "Cuộn z ngang - Ngấn dây - NOK",
-    "winding-z-hor-magnetic-overflow-nok": "Cuộn z ngang - Tràn từ - NOK",
-    "winding-z-hor-wire-z-is-tight-nok": "Cuộn z ngang - Dây z căng - NOK"
+    "Winding Z Hor  Wire Overflowed Past The Base Nok": "Cuộn Z ngang - Dây quấn tràn qua đế - NOK",
+    "Winding Z Ver  Wire Overflowed Past The Base Nok": "Cuộn Z dọc - Dây quấn tràn qua đế - NOK"
 }
