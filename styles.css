@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #c3c3c3;
     margin: 0;
     padding: 20px;
     transition: background-color 0.5s ease-in-out;
@@ -23,9 +23,49 @@ body {
 
 h1 {
     text-align: center;
+    font-size: 48px;
+    color: #eb15e7;
+    text-shadow: 0 0 15px #0fbcf9, 0 0 20px #0fbcf9, 0 0 40px #00a8ff, 0 0 80px #00a8ff;
     opacity: 0;
-    animation: fadeIn 1.5s forwards; /* Hiệu ứng fade-in cho tiêu đề */
+    animation: fadeIn 3s forwards, glow 2s infinite alternate;
+    position: relative;
+    overflow: hidden;
+    border-right: .15em solid #0fbcf9; /* Hiệu ứng gõ chữ */
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+    animation: typing 5s steps(40, end), fadeIn 3s forwards;
 }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #0fbcf9, 0 0 10px #0fbcf9, 0 0 20px #00a8ff, 0 0 30px #00a8ff;
+    }
+
+    100% {
+        text-shadow: 0 0 20px #0fbcf9, 0 0 30px #00a8ff, 0 0 50px #00a8ff, 0 0 100px #00a8ff;
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
 
 textarea {
     width: 100%;
