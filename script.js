@@ -15,11 +15,26 @@ document.getElementById('saveBtn').addEventListener('click', saveToExcel);
 document.getElementById('printBtn').addEventListener('click', printData);
 
 function processInput() {
-    const inputData = document.getElementById('inputData').value;
+    // Get the input data and project name values
+    const inputData = document.getElementById('inputData').value.trim();
+    const projectName = document.getElementById('projectName').value.trim();
+
+    // Concatenate inputData with the project name
+    const inputData3 = `${projectName}, [${inputData}]`; // Format: "Projectname, [Chuỗi]"
+
+    // Check if inputData or projectName is empty
+    if (!inputData || !projectName) {
+        console.error('Project name or input data cannot be empty.');
+        alert('Please enter both project name and input data.'); // Notify user
+        return; // Exit function if data is missing
+    }
+
+    // Parse the input data
     const parsedData = parseInputData(inputData);
     const tableBody = document.querySelector('#dataTable tbody');
-    tableBody.innerHTML = '';
+    tableBody.innerHTML = ''; // Clear previous table content
 
+    // Sort and display the parsed data in the table
     const sortedEntries = Object.entries(parsedData).sort((a, b) => a[1] - b[1]);
 
     for (const [englishLabel, quantity] of sortedEntries) {
@@ -35,13 +50,15 @@ function processInput() {
             <td>${note}</td>
             <td>${remainingQuantity}</td>
         `;
-        
+
         tableBody.appendChild(row);
     }
 
-    // Ghi log vào Google Sheets
-    logToGoogleSheets(inputData);
+    // Log concatenated data to Google Sheets
+    console.log('Logging data:', inputData3); // Log the concatenated string to console
+    logToGoogleSheets(inputData3); // Send to Google Sheets
 }
+
 
 function logToGoogleSheets(searchQuery) {
     fetch(googleScriptURL, {
@@ -53,31 +70,31 @@ function logToGoogleSheets(searchQuery) {
             'searchQuery': searchQuery // Gửi giá trị searchQuery
         })
     })
-    .then(response => {
-        if (response.ok) {
-            console.log('Search logged to Google Sheets:', response);
-        } else {
-            console.error('Error sending data to Google Sheets:', response);
-        }
-    })
-    .catch(error => {
-        console.error('Error sending data to Google Sheets:', error);
-    });
+        .then(response => {
+            if (response.ok) {
+                console.log('Search logged to Google Sheets:', response);
+            } else {
+                console.error('Error sending data to Google Sheets:', response);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending data to Google Sheets:', error);
+        });
 }
 
 // Hàm parse chuỗi với nhiều định dạng khác nhau
 function parseInputData(inputData) {
     // Bước 1: Xử lý chuỗi đầu vào, thay thế dấu nháy đơn bằng dấu nháy kép
     const cleanedInput = inputData.replace(/'/g, '"');  // Thay thế dấu nháy đơn bằng nháy kép
-    
+
     let parsedData = {};
-    
+
     try {
         // Bước 2: Kiểm tra xem chuỗi có phải là JSON hợp lệ hay không
         parsedData = JSON.parse(cleanedInput);
     } catch (error) {
         console.error('Error parsing string as JSON:', error);
-        
+
         // Nếu không phải JSON hợp lệ, sử dụng phương pháp cũ (split thủ công)
         const items = inputData.split(',');
         items.forEach(item => {
