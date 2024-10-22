@@ -28,13 +28,13 @@ function processInput() {
         const remainingQuantity = Math.max(0, 200 - quantity);
         const row = document.createElement('tr');
 
-        row.innerHTML = 
+        row.innerHTML = `
             <td>${englishLabel}</td>
             <td class="${getQuantityClass(quantity)}">${quantity}</td>
             <td>${vietnameseLabel}</td>
             <td>${note}</td>
             <td>${remainingQuantity}</td>
-        ;
+        `;
         
         tableBody.appendChild(row);
     }
