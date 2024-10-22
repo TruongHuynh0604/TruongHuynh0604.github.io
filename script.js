@@ -3,7 +3,6 @@ let labelMapping = {};
 // URL của Google Apps Script
 const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwKu-1r6rgcGVYSY1N0S5eP-m0RJCeZHsE2chlTRMV9AkTpi9_xk3klCa_L9N9tHjCs/exec'; // Thay thế bằng URL của Google Apps Script
 
-// Tải file JSON chứa các nhãn
 fetch('labels.json')
     .then(response => response.json())
     .then(data => {
@@ -11,59 +10,52 @@ fetch('labels.json')
     })
     .catch(error => console.error('Error loading JSON:', error));
 
-// Sự kiện khi nhấn các nút
 document.getElementById('processBtn').addEventListener('click', processInput);
 document.getElementById('saveBtn').addEventListener('click', saveToExcel);
 document.getElementById('printBtn').addEventListener('click', printData);
 
 function processInput() {
-    const projectName = document.getElementById('projectName').value.trim(); // Lấy tên dự án
     const inputData = document.getElementById('inputData').value;
     const parsedData = parseInputData(inputData);
     const tableBody = document.querySelector('#dataTable tbody');
     tableBody.innerHTML = '';
 
-    // Sắp xếp dữ liệu theo giá trị số lượng tăng dần
     const sortedEntries = Object.entries(parsedData).sort((a, b) => a[1] - b[1]);
 
-    // Tạo bảng hiển thị dữ liệu
     for (const [englishLabel, quantity] of sortedEntries) {
         const vietnameseLabel = getVietnameseLabel(englishLabel);
         const note = englishLabel.includes("nok") ? "NOK" : "OK";
         const remainingQuantity = Math.max(0, 200 - quantity);
         const row = document.createElement('tr');
 
-        row.innerHTML = `
+        row.innerHTML = 
             <td>${englishLabel}</td>
             <td class="${getQuantityClass(quantity)}">${quantity}</td>
             <td>${vietnameseLabel}</td>
             <td>${note}</td>
             <td>${remainingQuantity}</td>
-        `;
+        ;
         
         tableBody.appendChild(row);
     }
 
-    // Ghi log vào Google Sheets với định dạng tên dự án [chuỗi dữ liệu]
-    logToGoogleSheets(projectName, inputData);
+    // Ghi log vào Google Sheets
+    logToGoogleSheets(inputData);
 }
 
-// Hàm ghi log dữ liệu lên Google Sheets
-function logToGoogleSheets(projectName, inputData) {
-    // Gửi cả chuỗi inputData và projectName riêng biệt thay vì ghép chung
+function logToGoogleSheets(searchQuery) {
     fetch(googleScriptURL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            'inputData': inputData,   // Gửi chuỗi nhận được (inputData) vào cột đầu tiên
-            'projectName': projectName // Gửi tên dự án (projectName) vào cột thứ hai
+            'searchQuery': searchQuery // Gửi giá trị searchQuery
         })
     })
     .then(response => {
         if (response.ok) {
-            console.log('Data logged to Google Sheets:', response);
+            console.log('Search logged to Google Sheets:', response);
         } else {
             console.error('Error sending data to Google Sheets:', response);
         }
@@ -73,20 +65,20 @@ function logToGoogleSheets(projectName, inputData) {
     });
 }
 
-
-// Hàm phân tích chuỗi đầu vào với nhiều định dạng
+// Hàm parse chuỗi với nhiều định dạng khác nhau
 function parseInputData(inputData) {
+    // Bước 1: Xử lý chuỗi đầu vào, thay thế dấu nháy đơn bằng dấu nháy kép
     const cleanedInput = inputData.replace(/'/g, '"');  // Thay thế dấu nháy đơn bằng nháy kép
     
     let parsedData = {};
     
     try {
-        // Kiểm tra nếu chuỗi là JSON hợp lệ
+        // Bước 2: Kiểm tra xem chuỗi có phải là JSON hợp lệ hay không
         parsedData = JSON.parse(cleanedInput);
     } catch (error) {
         console.error('Error parsing string as JSON:', error);
         
-        // Nếu không phải JSON hợp lệ, tách chuỗi thủ công
+        // Nếu không phải JSON hợp lệ, sử dụng phương pháp cũ (split thủ công)
         const items = inputData.split(',');
         items.forEach(item => {
             const parts = item.split(':');
@@ -101,26 +93,22 @@ function parseInputData(inputData) {
     return parsedData;
 }
 
-// Hàm lấy nhãn tiếng Việt tương ứng từ file JSON
 function getVietnameseLabel(englishLabel) {
     return labelMapping[englishLabel] || "N/A"; // Sử dụng labelMapping đã tải
 }
 
-// Hàm xác định màu sắc ô dựa trên số lượng
 function getQuantityClass(quantity) {
     if (quantity < 100) return 'red';
     if (quantity < 200) return 'yellow';
     return '';
 }
 
-// Hàm lưu dữ liệu bảng vào file Excel
 function saveToExcel() {
     const table = document.getElementById('dataTable');
     const workbook = XLSX.utils.table_to_book(table, { sheet: "Data" });
     XLSX.writeFile(workbook, 'data_analysis.xlsx');
 }
 
-// Hàm in dữ liệu bảng
 function printData() {
     const printWindow = window.open('', '_blank');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
