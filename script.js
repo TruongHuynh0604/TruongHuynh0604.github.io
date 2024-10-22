@@ -50,14 +50,15 @@ function processInput() {
 
 // Hàm ghi log dữ liệu lên Google Sheets
 function logToGoogleSheets(projectName, inputData) {
-    const formattedData = `${projectName} [${inputData}]`; // Định dạng dữ liệu theo yêu cầu
+    // Gửi cả chuỗi inputData và projectName riêng biệt thay vì ghép chung
     fetch(googleScriptURL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            'formattedData': formattedData // Gửi giá trị formattedData
+            'inputData': inputData,   // Gửi chuỗi nhận được (inputData) vào cột đầu tiên
+            'projectName': projectName // Gửi tên dự án (projectName) vào cột thứ hai
         })
     })
     .then(response => {
@@ -71,6 +72,7 @@ function logToGoogleSheets(projectName, inputData) {
         console.error('Error sending data to Google Sheets:', error);
     });
 }
+
 
 // Hàm phân tích chuỗi đầu vào với nhiều định dạng
 function parseInputData(inputData) {
