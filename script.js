@@ -15,6 +15,7 @@ document.getElementById('saveBtn').addEventListener('click', saveToExcel);
 document.getElementById('printBtn').addEventListener('click', printData);
 
 function processInput() {
+    const projectName = document.getElementById('projectName').value.trim(); // Lấy tên dự án
     const inputData = document.getElementById('inputData').value;
     const parsedData = parseInputData(inputData);
     const tableBody = document.querySelector('#dataTable tbody');
@@ -39,23 +40,24 @@ function processInput() {
         tableBody.appendChild(row);
     }
 
-    // Ghi log vào Google Sheets
-    logToGoogleSheets(inputData);
+    // Ghi log vào Google Sheets với định dạng yêu cầu
+    logToGoogleSheets(projectName, inputData);
 }
 
-function logToGoogleSheets(searchQuery) {
+function logToGoogleSheets(projectName, inputData) {
+    const formattedData = `${projectName} [${inputData}]`; // Định dạng dữ liệu theo yêu cầu
     fetch(googleScriptURL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            'searchQuery': searchQuery // Gửi giá trị searchQuery
+            'formattedData': formattedData // Gửi giá trị formattedData
         })
     })
     .then(response => {
         if (response.ok) {
-            console.log('Search logged to Google Sheets:', response);
+            console.log('Data logged to Google Sheets:', response);
         } else {
             console.error('Error sending data to Google Sheets:', response);
         }
@@ -67,18 +69,17 @@ function logToGoogleSheets(searchQuery) {
 
 // Hàm parse chuỗi với nhiều định dạng khác nhau
 function parseInputData(inputData) {
-    // Bước 1: Xử lý chuỗi đầu vào, thay thế dấu nháy đơn bằng dấu nháy kép
     const cleanedInput = inputData.replace(/'/g, '"');  // Thay thế dấu nháy đơn bằng nháy kép
     
     let parsedData = {};
     
     try {
-        // Bước 2: Kiểm tra xem chuỗi có phải là JSON hợp lệ hay không
+        // Kiểm tra nếu chuỗi là JSON hợp lệ
         parsedData = JSON.parse(cleanedInput);
     } catch (error) {
         console.error('Error parsing string as JSON:', error);
         
-        // Nếu không phải JSON hợp lệ, sử dụng phương pháp cũ (split thủ công)
+        // Nếu không phải JSON hợp lệ, tách chuỗi thủ công
         const items = inputData.split(',');
         items.forEach(item => {
             const parts = item.split(':');
