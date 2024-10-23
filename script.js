@@ -170,9 +170,9 @@ function printData() {
     
     // Write the data table
     printWindow.document.write(document.getElementById('dataTable').outerHTML);
-    printWindow.document.write(`<p>0123456789</p>`);
-    printWindow.document.write(`<p><strong>Input Data:</strong> ${inputData}</p>`);
-    printWindow.document.write(`<p>0123456789</p>`);
+    printWindow.document.write(`<p><strong>Input Data:</strong></p>`);
+    printWindow.document.write(`<p>${inputData}</p>`);
+    printWindow.document.write(`<p><strong>END</strong></p>`);
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
