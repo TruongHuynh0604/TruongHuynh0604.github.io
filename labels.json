@@ -53,5 +53,8 @@
     "winding-x-ok": "Cuộn x - OK",
     "winding-x-nok": "Cuộn x - NOK",
     "winding-x-dirty-wire-nok": "Cuộn x - Dây bẩn - NOK",
-    "winding-x-scratch-wire--nok": "Cuộn x - Dây trầy xước - NOK"
+    "winding-x-scratch-wire--nok": "Cuộn x - Dây trầy xước - NOK",
+    "pin-full-wire-loose-wire-nok": "Pin quấn 2 chân - Dây lỏng - NOK",
+    "pin-half-wire-wire-through-base-nok": "Pin quấn 1 chân - Dây qua đế - NOK",
+    "pin-full-wire-broken-wire-nok": "Pin quấn 2 chân - Dây gãy - NOK"
 }
