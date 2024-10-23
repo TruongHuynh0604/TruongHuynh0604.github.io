@@ -121,12 +121,30 @@ function getQuantityClass(quantity) {
 }
 
 function saveToExcel() {
+    // Get the input data and project name values
+    const inputData = document.getElementById('inputData').value.trim();
+    const projectName = document.getElementById('projectName').value.trim();
+    // Check if inputData or projectName is empty
+    if (!inputData || !projectName) {
+        console.error('Project name or input data cannot be empty.');
+        alert('Please enter both project name and input data.'); // Notify user
+        return; // Exit function if data is missing
+    }
     const table = document.getElementById('dataTable');
     const workbook = XLSX.utils.table_to_book(table, { sheet: "Data" });
-    XLSX.writeFile(workbook, 'data_analysis.xlsx');
+    XLSX.writeFile(workbook, 'Name_Data.xlsx');
 }
 
 function printData() {
+    // Get the input data and project name values
+    const inputData = document.getElementById('inputData').value.trim();
+    const projectName = document.getElementById('projectName').value.trim();
+    // Check if inputData or projectName is empty
+    if (!inputData || !projectName) {
+        console.error('Project name or input data cannot be empty.');
+        alert('Please enter both project name and input data.'); // Notify user
+        return; // Exit function if data is missing
+    }
     const printWindow = window.open('', '_blank');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
     printWindow.document.write(document.getElementById('dataTable').outerHTML);
