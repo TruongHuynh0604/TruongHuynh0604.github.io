@@ -18,6 +18,12 @@
     "pin-half-wire-base-nok": "Pin quấn 1 chân - Base - NOK",
     "pin-full-wire-base-nok": "Pin quấn 2 chân - Base - NOK",
     "pin-full-wire-wire-stamping-nok": "Pin quấn 2 chân - Dập dây - NOK",
+    "pin-half-wire-loose-wire-nok": "Pin quấn 1 chân - Dây lỏng - NOK",
+    "pin-half-wire-pola-nok": "Pin quấn 1 chân - Ngược cực - NOK",
+    "pin-half-wire-wire-through-base-nok": "Pin quấn 1 chân - Dây qua đế - NOK",
+    "pin-full-wire-loose-wire-nok": "Pin quấn 2 chân - Dây lỏng - NOK",
+    "pin-full-wire-broken-wire-nok": "Pin quấn 2 chân - Dây gãy - NOK",
+    "pin-full-wire-pola-nok": "Pin quấn 2 chân - Ngược cực - NOK",
     "ferrite-core-ok": "Lõi ferrite - OK",
     "ferrite-core-magnetic-overflow-nok": "Lõi ferrite - Tràn từ - NOK",
     "ferrite-core-broken-ferrite-nok": "Lõi ferrite - Gãy/mẻ ferrite - NOK",
@@ -53,8 +59,5 @@
     "winding-x-ok": "Cuộn x - OK",
     "winding-x-nok": "Cuộn x - NOK",
     "winding-x-dirty-wire-nok": "Cuộn x - Dây bẩn - NOK",
-    "winding-x-scratch-wire--nok": "Cuộn x - Dây trầy xước - NOK",
-    "pin-full-wire-loose-wire-nok": "Pin quấn 2 chân - Dây lỏng - NOK",
-    "pin-half-wire-wire-through-base-nok": "Pin quấn 1 chân - Dây qua đế - NOK",
-    "pin-full-wire-broken-wire-nok": "Pin quấn 2 chân - Dây gãy - NOK"
+    "winding-x-scratch-wire--nok": "Cuộn x - Dây trầy xước - NOK"
 }
