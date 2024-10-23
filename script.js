@@ -124,30 +124,49 @@ function saveToExcel() {
     // Get the input data and project name values
     const inputData = document.getElementById('inputData').value.trim();
     const projectName = document.getElementById('projectName').value.trim();
+
     // Check if inputData or projectName is empty
     if (!inputData || !projectName) {
         console.error('Project name or input data cannot be empty.');
         alert('Please enter both project name and input data.'); // Notify user
         return; // Exit function if data is missing
     }
+
     const table = document.getElementById('dataTable');
     const workbook = XLSX.utils.table_to_book(table, { sheet: "Data" });
-    XLSX.writeFile(workbook, 'Name_Data.xlsx');
+
+    // Set the file name to the project name
+    const fileName = `${projectName}_Model.xlsx`;
+    XLSX.writeFile(workbook, fileName);
 }
 
 function printData() {
     // Get the input data and project name values
     const inputData = document.getElementById('inputData').value.trim();
     const projectName = document.getElementById('projectName').value.trim();
+
     // Check if inputData or projectName is empty
     if (!inputData || !projectName) {
         console.error('Project name or input data cannot be empty.');
         alert('Please enter both project name and input data.'); // Notify user
         return; // Exit function if data is missing
     }
+
     const printWindow = window.open('', '_blank');
-    printWindow.document.write('<html><head><title>Print</title></head><body>');
+    printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('table { border-collapse: collapse; width: 100%; }');
+    printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }');
+    printWindow.document.write('h2, h3 { text-align: center; }');
+    printWindow.document.write('</style></head><body>');
+    
+    // Add project name and input data information
+    printWindow.document.write(`<h2>Truong Huynh ENG</h2>`);
+    printWindow.document.write(`<h3>Project Name: ${projectName}</h3>`);
+    
+    // Write the data table
     printWindow.document.write(document.getElementById('dataTable').outerHTML);
+    
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.print();
