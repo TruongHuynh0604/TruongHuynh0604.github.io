@@ -160,8 +160,12 @@ function printData() {
     printWindow.document.write('h2, h3 { text-align: center; }');
     printWindow.document.write('</style></head><body>');
     
-    // Add project name and input data information
-    printWindow.document.write(`<h2>Truong Huynh ENG</h2>`);
+    // Get the current date and time
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleString(); // Format date and time
+    
+    // Add the current time to the h2
+    printWindow.document.write(`<h2>${formattedDate}</h2>`);
     printWindow.document.write(`<h3>Project Name: ${projectName}</h3>`);
     
     // Write the data table
