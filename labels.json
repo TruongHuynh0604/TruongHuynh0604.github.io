@@ -34,7 +34,7 @@
     "winding-z-hor-wire-indentation-nok": "Cuộn z ngang - Ngấn dây - NOK",
     "winding-z-hor-magnetic-overflow-nok": "Cuộn z ngang - Tràn từ - NOK",
     "winding-z-hor-wire-z-is-tight-nok": "Cuộn z ngang - Dây z căng - NOK",
-    "winding-z-hor-wire-overflowed-past-the-base-nok": "Cuộn z ngang - Dây quấn tràn qua đế - NOK",
+    "winding-z-hor--wire-overflowed-past-the-base-nok": "Cuộn z ngang - Dây quấn tràn qua đế - NOK",
     "winding-z-ver-ok": "Cuộn z dọc - OK",
     "winding-z-ver-nok": "Cuộn z dọc - NOK",
     "winding-z-ver-loose-wire-nok": "Cuộn z dọc - Dây lỏng - NOK",
