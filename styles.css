@@ -24,8 +24,8 @@ body {
 h1 {
     text-align: center;
     font-size: 48px;
-    color: #d9071f; /* Màu chữ */
-    text-shadow: 0 0 15px #0fbcf9, 0 0 20px #0fbcf9, 0 0 40px #00a8ff, 0 0 80px #00a8ff;
+    color: #000000; /* Màu chữ: đen */
+    text-shadow: none; /* Bỏ hiệu ứng đổ bóng */
     opacity: 0;
     animation: fadeIn 3s forwards, glow 2s infinite alternate;
     position: relative;
@@ -43,13 +43,12 @@ h1 {
 
 @keyframes glow {
     0% {
-        text-shadow: 0 0 5px #0fbcf9, 0 0 10px #0fbcf9, 0 0 20px #00a8ff, 0 0 30px #00a8ff;
+        text-shadow: none; /* Bỏ hiệu ứng đổ bóng ở trạng thái đầu */
     }
     100% {
-        text-shadow: 0 0 20px #0fbcf9, 0 0 30px #00a8ff, 0 0 50px #00a8ff, 0 0 100px #00a8ff;
+        text-shadow: none; /* Bỏ hiệu ứng đổ bóng ở trạng thái cuối */
     }
 }
-
 
 textarea {
     width: 100%;
