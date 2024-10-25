@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#container {
+    display: flex; /* Sử dụng flexbox để chia khu vực */
+}
+
+#left-panel {
+    flex: 1; /* Khu vực bên trái chiếm 1 phần */
+    padding: 10px;
+}
+
+#center-panel {
+    flex: 2; /* Khu vực giữa chiếm 2 phần */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Giữa nội dung */
+    padding: 10px;
+}
+
+#main-image {
+    max-width: 100%; /* Giữ tỉ lệ ảnh */
+    max-height: 500px; /* Giới hạn chiều cao */
+    margin-bottom: 100px;
+}
+
+.image-list {
+    width: 350px; /* Chiều rộng của danh sách ảnh */
+    height: 900px; /* Chiều cao của danh sách ảnh */
+    overflow-y: auto; /* Thêm cuộn nếu quá nhiều ảnh */
+    border: 1px solid #ccc; /* Viền cho danh sách ảnh */
+    padding: 5px; /* Padding cho danh sách ảnh */
+    margin-bottom: 10px; /* Khoảng cách dưới */
+}
+
+#right-panel {
+    flex: 1; /* Khu vực bên phải chiếm 1 phần */
+    padding: 10px;
+}
+
+#error-list {
+    width: 100%; /* Mở rộng chiều rộng của danh sách lỗi */
+    height: 150px; /* Chiều cao của danh sách lỗi */
+}
+
+button {
+    margin-top: 5px; /* Khoảng cách giữa các nút */
+    padding: 5px 10px; /* Padding cho nút */
+}
+
+ul {
+    margin-top: 10px; /* Khoảng cách trên của console log */
+    list-style-type: none;
+    padding: 0; /* Xóa padding */
+}
