@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Load Ảnh</title>
+    <link rel="stylesheet" href="css/Product_Classification.css">
+</head>
+<body>
+    <h1>Load Ảnh</h1>
+
+    <div id="container">
+        <!-- Chọn thư mục và load ảnh -->
+        <div id="left-panel">
+            <label for="image-folder">Select folder image:</label>
+            <input type="file" id="image-folder" webkitdirectory directory>
+            <button id="load-image-btn">Upload</button>
+
+            <!-- Danh sách ảnh đã tải lên -->
+            <div id="uploaded-images" class="image-list"></div>
+        </div>
+
+        <!-- Khu vực hiển thị ảnh -->
+        <div id="center-panel">
+            <img id="main-image" src="" alt="Ảnh sẽ hiển thị ở đây">
+            <p id="image-name"></p>
+        </div>
+
+        <!-- Bên phải: Danh sách lỗi và nút xác nhận -->
+        <div id="right-panel">
+            <label for="error-list">Danh sách lỗi:</label>
+            <select id="error-list" size="6" multiple></select>
+            <button id="confirm-btn" disabled>Xác nhận</button>
+            <ul id="console-log"></ul>
+        </div>
+    </div>
+
+    <script src="js/Product_Classification.js"></script>
+</body>
+</html>
