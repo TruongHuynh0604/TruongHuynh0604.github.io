@@ -1,0 +1,7 @@
+* Upload Git
+git add .
+git commit -m "Upload_code"
+git push origin main
+
+* Run server JS
+node server.js
