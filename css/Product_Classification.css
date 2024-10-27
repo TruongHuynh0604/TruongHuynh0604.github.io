@@ -26,7 +26,7 @@ h1 {
 
 #main-image {
     max-width: 100%; /* Giữ tỉ lệ ảnh */
-    max-height: 500px; /* Giới hạn chiều cao */
+    max-height: 1100px; /* Giới hạn chiều cao */
     margin-bottom: 100px;
 }
 

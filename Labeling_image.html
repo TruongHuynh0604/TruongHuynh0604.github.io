@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Labeling Tool</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+        #bounding-box-list {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Labeling Tool</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <canvas id="canvas"></canvas>
+    <div id="bounding-box-list"></div>
+    <button id="exportLabels">Export Labels</button>
+    <select id="labelSelect">
+        <option value="error_1">error_1</option>
+        <option value="error_2">error_2</option>
+        <option value="error_3">error_3</option>
+    </select>
+
+    <script src="labeling.js"></script>
+</body>
+</html>

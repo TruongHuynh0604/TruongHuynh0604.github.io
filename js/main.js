@@ -39,7 +39,10 @@
         } else if (check && id === "admin" && password === "1")
         {
             window.location.href = "Product_Classification.html"
-        }
+        } else if (check && id === "admin" && password === "2")
+            {
+                window.location.href = "Load_image_JS_server.html"
+            }
          else if (check) {
             alert("Sai ID hoặc mật khẩu!");
         }

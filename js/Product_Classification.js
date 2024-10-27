@@ -10,9 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let selectedImageFile = null;
     let errorName = '';
-    let selectedNameElement = null; // Phần tử DOM của ảnh đã chọn
+    let selectedNameElement = null;
 
-    // Tải ảnh từ thư mục
     loadImageBtn.addEventListener('click', function () {
         const files = imageFolderInput.files;
 
@@ -27,15 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        uploadedImages.innerHTML = ''; // Xóa danh sách ảnh cũ
+        uploadedImages.innerHTML = ''; 
 
-        images.sort((a, b) => a.name.localeCompare(b.name)); // Sắp xếp tên ảnh từ A đến Z
+        images.sort((a, b) => a.name.localeCompare(b.name));
 
         images.forEach((imageFile, index) => {
             const imageUrl = URL.createObjectURL(imageFile);
             const nameElement = document.createElement('div');
             nameElement.className = 'thumbnail-name';
-            nameElement.textContent = `${index + 1}. ${imageFile.name}`; // Thêm số thứ tự
+            nameElement.textContent = `${index + 1}. ${imageFile.name}`; 
 
             nameElement.addEventListener('click', function () {
                 selectedImageFile = imageFile;
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 imageNameDisplay.textContent = `Image name: ${imageFile.name}`;
                 consoleLog.innerHTML = `<li>Đã chọn ảnh: ${imageFile.name}</li>`;
 
-                confirmBtn.disabled = !errorName; // Kích hoạt nút xác nhận nếu có lỗi
+                confirmBtn.disabled = !errorName;
 
                 const allImageNames = uploadedImages.querySelectorAll('.thumbnail-name');
                 allImageNames.forEach(name => name.style.fontWeight = 'normal');
@@ -76,10 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     confirmBtn.addEventListener('click', function () {
         if (selectedImageFile && errorName) {
+            resizeAndDownloadImage(selectedImageFile, 640, 640);
+
             const date = new Date();
             const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
     
-            const homeID = sessionStorage.getItem("homeID") || "No ID"; // Lấy ID từ sessionStorage
+            const homeID = sessionStorage.getItem("homeID") || "No ID";
             const logEntry = {
                 homeID: homeID,
                 error: errorName,
@@ -99,24 +100,38 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("Lỗi khi ghi log");
                 }
             });
-    
-            // Code xử lý ảnh tiếp theo (như đã thiết lập)
-            if (selectedNameElement) {
-                const nextSibling = selectedNameElement.nextSibling;
-                uploadedImages.removeChild(selectedNameElement);
-    
-                if (nextSibling) {
-                    nextSibling.click(); // Tự động chọn ảnh tiếp theo
-                } else {
-                    selectedImageFile = null;
-                    selectedNameElement = null;
-                    mainImage.src = ''; // Xóa ảnh đang hiển thị
-                    imageNameDisplay.textContent = 'Image';
-                    confirmBtn.disabled = true;
-                }
-            }
         } else {
             alert("Vui lòng chọn cả ảnh và lỗi để xác nhận!");
         }
-    });    
+    });
+
+    function resizeAndDownloadImage(file, width, height) {
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob(blob => {
+                const resizedImg = new Image();
+                resizedImg.src = URL.createObjectURL(blob);
+
+                resizedImg.onload = function () {
+                    const link = document.createElement('a');
+                    link.href = resizedImg.src;
+                    link.download = `resized_${file.name}`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    console.log("Image resized and downloaded:", link.download);
+                };
+            }, file.type, 0.9);
+        };
+    }
 });
